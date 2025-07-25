@@ -9,6 +9,10 @@ type StockResult = {
     symbol: string;
     type: string;
 };
+type FinnhubSearchResponse = {
+    result: StockResult[];
+    error?: string;
+};
 
 type AllData = {
     name: string;
@@ -61,7 +65,7 @@ export default function StockInfo() {
                         { signal: controller.signal }
                     );
 
-                    const data = await res.json();
+                    const data: FinnhubSearchResponse = await res.json();
 
                     if (data.error) {
                         console.warn('API error:', data.error);
@@ -71,16 +75,16 @@ export default function StockInfo() {
                     }
 
                     const filteredResults = data.result?.filter(
-                        (item: any) =>
+                        (item: StockResult) =>
                             item.symbol &&
-                            item.symbol.match(/^[A-Z.]+$/) &&
+                            /^[A-Z.]+$/.test(item.symbol) &&
                             !item.symbol.endsWith('.CN')
                     );
 
                     setStocks(filteredResults || []);
                     setShowDropdown(true);
-                } catch (err: any) {
-                    if (err.name !== 'AbortError') {
+                } catch (err) {
+                    if ((err as Error).name !== 'AbortError') {
                         console.error('Failed to fetch symbols:', err);
                     }
                     setStocks([]);

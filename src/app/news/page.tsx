@@ -26,10 +26,11 @@ export default function NewsPage() {
         const res = await fetch(
           `https://finnhub.io/api/v1/news?category=general&token=${process.env.NEXT_PUBLIC_FINNHUB_API_KEY}`
         );
-        const data = await res.json();
+        const data: NewsItem[] = await res.json();
         const filtered = data.filter(
-          (item: any) =>
-            item.image && !item.image.startsWith('https://static2.finnhub.io/')
+          (item: NewsItem) =>
+            item.image &&
+            !item.image.startsWith('https://static2.finnhub.io/')
         );
 
         setNews(filtered);

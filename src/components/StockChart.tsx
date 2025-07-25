@@ -7,15 +7,29 @@ type SymbolProp = {
   symbol: string;
 };
 
+type CandleData = {
+  t: number;
+  o: number; 
+  h: number; 
+  l: number; 
+  c: number; 
+};
+
+type SeriesItem = {
+  x: Date;
+  y: [number, number, number, number];
+};
+
+
 export default function StockChart({ symbol }: SymbolProp) {
-  const [series, setSeries] = useState<any[]>([]);
+  const [series, setSeries] = useState<{ data: SeriesItem[] }[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
     async function fetchChartData() {
       if (!symbol) {
-        setSeries([]); // ensure chart clears if no symbol
+        setSeries([]); 
         return;
       }
 
@@ -36,10 +50,13 @@ export default function StockChart({ symbol }: SymbolProp) {
         const res = await fetch(
           `https://api.polygon.io/v2/aggs/ticker/${symbol}/range/1/day/${from}/${to}?adjusted=true&sort=asc&apiKey=${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`
         );
-        const json = await res.json();
+        const json: {
+          status: string;
+          results?: CandleData[];
+        } = await res.json();
 
-        if (json.status === 'OK' && json.results?.length > 0) {
-          const chartData = json.results.map((d: any) => ({
+        if (json.status === 'OK' && json.results?.length) {
+          const chartData: SeriesItem[] = json.results.map((d) => ({
             x: new Date(d.t),
             y: [d.o, d.h, d.l, d.c],
           }));
