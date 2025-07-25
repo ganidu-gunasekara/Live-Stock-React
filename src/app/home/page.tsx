@@ -146,18 +146,34 @@ export default function StockInfo() {
             <label htmlFor="stock" className="block text-sm font-medium">
                 Search a stock
             </label>
+            <div className="relative w-full">
+                <input
+                    id="stock"
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => {
+                        setInputValue(e.target.value);
+                        setShowDropdown(true);
+                    }}
+                    className="w-full bg-zinc-800 border border-zinc-600 text-yellow-300 px-4 py-2 rounded-md placeholder-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    placeholder="AAPL, TSLA, AMZN, MSFT, GOOG, META, NVDA, NFLX, BABA, JPM"
+                />
+                {inputValue && (
+                    <button
+                        onClick={() => {
+                            setInputValue('');
+                            setShowDropdown(false);
+                            setStockData(initialStockData);
+                            setSymbol('');
 
-            <input
-                id="stock"
-                type="text"
-                value={inputValue}
-                onChange={(e) => {
-                    setInputValue(e.target.value);
-                    setShowDropdown(true);
-                }}
-                className="w-full bg-zinc-800 border border-zinc-600 text-yellow-300 px-4 py-2 rounded-md placeholder-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                placeholder="AAPL, TSLA, AMZN, MSFT, GOOG, META, NVDA, NFLX, BABA, JPM"
-            />
+                        }}
+                        type="button"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow-400 hover:text-yellow-200"
+                    >
+                        ×
+                    </button>
+                )}
+            </div>
 
             {showDropdown && stocks.length > 0 && (
                 <div className="z-10 mt-2 w-full max-h-64 overflow-y-auto bg-zinc-800 border border-zinc-600 rounded-md shadow">
