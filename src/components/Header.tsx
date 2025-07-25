@@ -21,7 +21,7 @@ export default function Header() {
         </Link>
 
         <a
-          href="https://github.com/yourusername/your-repo"
+          href="https://github.com/ganidu-gunasekara/Live-Stock-React"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:flex items-center gap-2 text-yellow-400 hover:text-yellow-300 cursor-pointer"
@@ -45,7 +45,7 @@ export default function Header() {
           </Link>
 
           <a
-            href="https://github.com/yourusername/your-repo"
+            href="https://github.com/ganidu-gunasekara/Live-Stock-React"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 cursor-pointer"

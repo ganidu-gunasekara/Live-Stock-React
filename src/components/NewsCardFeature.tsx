@@ -32,10 +32,9 @@ export default function NewsCardFeature({ news }: { news: NewsItem }) {
           alt={news.headline}
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-top"
         />
 
-        {/* Only covers bottom 40% */}
         <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/80 to-transparent p-6">
           <div className="text-sm text-gray-300 mb-2">
             {news.source} • {formatTimeAgo(news.datetime)}

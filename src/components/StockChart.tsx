@@ -59,14 +59,18 @@ export default function StockChart({ symbol }: SymbolProp) {
   }, [symbol]);
 
   return (
-    <div className="bg-zinc-900 p-6 rounded-lg text-yellow-300 border border-zinc-700 shadow-md mt-8">
-      <h2 className="text-2xl font-bold mb-4">
-        {symbol ? `${symbol} Stock Chart` : 'Stock Chart'}
-      </h2>
+  <div className="bg-zinc-900 p-6 rounded-lg text-yellow-300 border border-zinc-700 shadow-md mt-8">
+    <h2 className="text-2xl font-bold mb-4">
+      {symbol ? `${symbol} Stock Chart` : 'Stock Chart'}
+    </h2>
 
-      {loading && <p>Loading chart...</p>}
-      {error && <p className="text-red-400">{error}</p>}
-
+    {loading ? (
+      <div className="flex items-center justify-center h-[350px]">
+        <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    ) : error ? (
+      <p className="text-red-400">{error}</p>
+    ) : (
       <ReactApexChart
         type="candlestick"
         series={series}
@@ -113,6 +117,6 @@ export default function StockChart({ symbol }: SymbolProp) {
         }}
         height={350}
       />
-    </div>
-  );
-}
+    )}
+  </div>
+)}

@@ -31,6 +31,9 @@ export default function NewsCardSmall({ news }: { news: NewsItem }) {
         <div className="w-20 h-20 relative flex-shrink-0">
           <Image src={news.image} alt="thumbnail" fill className="object-cover rounded-md" />
         </div>
+        {/* <div>
+          {news.image}
+        </div> */}
         <div className="flex flex-col justify-between">
           <div className="text-xs text-gray-400">{news.source} • {formatTimeAgo(news.datetime)}</div>
           <div className="font-medium text-sm">{news.headline}</div>
