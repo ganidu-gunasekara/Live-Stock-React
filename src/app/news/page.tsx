@@ -52,8 +52,8 @@ export default function NewsPage() {
     );
   }
 
-  const feature = news[1];
-  const rest = news.slice(0);
+  const feature = news[0];
+  const rest = news.slice(1);
 
   return (
     <div className="p-6 bg-black min-h-screen text-white space-y-6">
